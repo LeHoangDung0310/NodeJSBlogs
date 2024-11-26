@@ -1,23 +1,54 @@
-<h3>Sign In</h3>
+<div class="form-container">
+    <div id="form-login" class="form-content">
+        <!-- Form đăng nhập -->
+        <h3>Sign In</h3>
+        <form action="/admin" method="POST" class="form-login">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
 
-<form action="/admin" method="POST">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username">
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
 
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password">
+            <input type="submit" value="Login" class="btn">
+        </form>
+        <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+    </div>
 
-    <input type="submit" value="Login" class="btn">
-</form>
+    <div id="form-register" class="form-content" style="display: none;">
+        <!-- Form đăng ký -->
+        <h3>Register</h3>
+        <form action="/register" method="POST" class="form-register">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
 
-<h3>Register</h3>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
 
-<form action="/register" method="POST">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username">
+            <input type="submit" value="Register" class="btn">
+        </form>
+        <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+    </div>
+</div>
 
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password">
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById("form-login");
+        const registerForm = document.getElementById("form-register");
+        const showRegister = document.getElementById("show-register");
+        const showLogin = document.getElementById("show-login");
 
-    <input type="submit" value="Register" class="btn">
-</form>
+        // Chuyển sang form đăng ký
+        showRegister.addEventListener("click", (e) => {
+            e.preventDefault();
+            loginForm.style.display = "none";
+            registerForm.style.display = "block";
+        });
+
+        // Chuyển sang form đăng nhập
+        showLogin.addEventListener("click", (e) => {
+            e.preventDefault();
+            registerForm.style.display = "none";
+            loginForm.style.display = "block";
+        });
+    });
+</script>

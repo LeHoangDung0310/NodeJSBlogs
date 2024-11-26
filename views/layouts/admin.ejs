@@ -6,7 +6,17 @@
     <title><%= locals.title %></title>
     <meta name="description" content="<%= locals.description %>">
     <link rel="stylesheet" href="/css/style.css">
+    <!-- <link rel="stylesheet" href="./admin.css"> -->
     <script type="text/javascript" defer src="/js/script.js"></script>
+
+    
+    <!-- Thêm link CSS của Toastr -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+<!-- Thêm script JavaScript của Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
 </head>
 <body>
     
@@ -18,5 +28,25 @@
         <%- include('../partials/footer.ejs') %>
     </div>
     
+    <script>
+        // Cấu hình Toastr
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right", // Vị trí hiển thị toast
+            "timeOut": "5000" // Thời gian hiển thị toast (5000ms = 5s)
+        };
+    
+        // Kiểm tra và hiển thị toast nếu có flash message từ server
+        <% if (locals.success) { %>
+            toastr.success("<%= locals.success %>");
+        <% } %>
+        <% if (locals.error) { %>
+            toastr.error("<%= locals.error %>");
+        <% } %>
+    </script>
+    
 </body>
+
+
 </html>

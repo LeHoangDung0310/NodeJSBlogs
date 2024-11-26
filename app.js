@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const flash = require('connect-flash');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
@@ -11,13 +12,13 @@ const connectDB = require('./server/config/db');
 const { isActiveRoute } = require('./server/helpers/routeHelpers');
 
 const app = express();
-const PORT = 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
-//Connect to DB
- connectDB();
+// Kết nối MongoDB
+connectDB();
 
-app.use(express.urlencoded({extended: true}));
+// Middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
@@ -25,25 +26,42 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUnitialized: true,
+    saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI
-    })
-}))
+        mongoUrl: process.env.MONGODB_URI,
+    }),
+}));
 
+// Static files
 app.use(express.static('public'));
 
-//Templating Engine
+// Templating Engine
 app.use(expressLayout);
-app.set('layout','./layouts/main');
+app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
+
+// Local helpers
 app.locals.isActiveRoute = isActiveRoute;
+// Cấu hình flash message
+app.use(flash());  // Thêm middleware flash vào
 
+// Chuyển thông báo flash vào locals để sử dụng trong EJS
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 
-app.use('/', require('./server/routes/main'));
-app.use('/', require('./server/routes/admin'));
+// Cấu hình body parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.listen(PORT,()=>{
+// Routes
+app.use('/', require('./server/routes/main')); // Route cho login/register
+app.use('/', require('./server/routes/admin')); // Route cho admin
+
+// Khởi động server
+app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
 });

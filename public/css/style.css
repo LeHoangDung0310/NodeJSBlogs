@@ -366,3 +366,66 @@ img{
 .btn-delete:hover {
     opacity: 0.9; /* Hiệu ứng khi rê chuột */
 }
+
+/* ------------------- */
+/* Đặt kiểu cho form đăng nhập và đăng ký */
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Đặt kiểu cho các trường form */
+.form-content {
+    margin-bottom: 15px;
+}
+
+.form-content label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-content input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-content input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* p {
+    text-align: center;
+}
+
+a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}  */
+
+/* Toastr styling */
+.toastr.success {
+    background-color: #4CAF50;
+}
+.toastr.error {
+    background-color: #f44336;
+}

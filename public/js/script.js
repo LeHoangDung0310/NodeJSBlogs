@@ -25,3 +25,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('searchClose not found');
     }
 });
+
+// const toastr = require('toastr');

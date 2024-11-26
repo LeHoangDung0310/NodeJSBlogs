@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
+
+
 /** 
  * Check login
  */ 
@@ -133,86 +135,79 @@ router.post('/add-post',authMiddleware,async(req,res) => {
     }
 });
 
-/** GET
- * Admin-Create New Post
- * */ 
-router.get('/edit-post/:id',authMiddleware,async(req,res) => {
+router.get('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
-        const locals = {
-            title: "Edit Post",
-            description: "Free NodeJs User Management System."
-           }
-
-        const data = await Post.findOne({_id: req.params.id});
-        res.render('admin/edit-post',{
-            locals,
-            data,
-            layout: adminLayout
-        })
-
+  
+      const locals = {
+        title: "Edit Post",
+        description: "Free NodeJs User Management System",
+      };
+  
+      const data = await Post.findOne({ _id: req.params.id });
+  
+      res.render('admin/edit-post', {
+        locals,
+        data,
+        layout: adminLayout
+      })
+  
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-});
-
-
-
-/** PUT
- * Admin-Create New Post
- * */ 
-router.put('/edit-post/:id',authMiddleware,async(req,res) => {
+  
+  });
+  
+  
+  /**
+   * PUT /
+   * Admin - Create New Post
+  */
+  router.put('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
-        await Post.findByIdAndUpdate(req.params.id,{
-           title: req.body.title,
-           body: req.body.body,
-           updatedAt: Date.now()
-        });
-        res.redirect(`/edit-post/${req.params.id}`);
-
+  
+      await Post.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        body: req.body.body,
+        updatedAt: Date.now()
+      });
+  
+    //   res.redirect(`/edit-post/${req.params.id}`);
+    res.redirect('/dashboard');
+  
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-});
+  
+  });
+  
 
 
-/** POST
- * Admin-Check login */ 
-/*router.post('/admin',async(req,res) => {
-    try {
-       const { username , password } = req.body;
-       if(req.body.username === 'admin' && req.body.password === 'password'){
-        res.send('You are logged in.')
-       }else{
-        res.send('Wrong username or password')
-       } 
-    } catch (error) {
-     console.log(error);
-    }
-});*/
+
 
 /** POST
  * Admin-Register */ 
-router.post('/register',async(req,res) => {
-    try {
-       const { username , password } = req.body;
-       const hashedPassword = await bcrypt.hash(password,10);
+router.post('/register', async (req, res) => {
+    const { username, password } = req.body;
 
-       try{
-         const user = await User.create({ username, password: hashedPassword});
-         res.status(201).json({message: 'User Created', user});
-       }catch(error){
-         if(error.code === 11000){
-             res.status(409).json({message: 'User already in use'});
-         }else{
-            res.status(500).json({message: 'Internal server error'});
-         }
-       }
-     
-       
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({ username, password: hashedPassword });
+
+        // Gửi flash message thành công
+        req.flash('success', 'User registered successfully!');
+        res.redirect('/admin');
     } catch (error) {
-     console.log(error);
+        if (error.code === 11000) {
+            req.flash('error', 'Username is already taken.');
+            res.redirect('/register');
+        } else {
+            req.flash('error', 'Internal server error.');
+            res.redirect('/register');
+        }
     }
 });
+
+
 
 /** DELETE
  * Admin-Delete Post
