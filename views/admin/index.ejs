@@ -1,33 +1,49 @@
 <div class="form-container">
     <div id="form-login" class="form-content">
         <!-- Form đăng nhập -->
-        <h3>Sign In</h3>
+        <h3>Đăng nhập</h3>
         <form action="/admin" method="POST" class="form-login">
-            <label for="username"><b>Username</b></label>
+            <label for="username"><b>Tên đăng nhập</b></label>
             <input type="text" placeholder="Enter Username" name="username" required>
 
-            <label for="password"><b>Password</b></label>
+            <label for="password"><b>Mật khẩu</b></label>
             <input type="password" placeholder="Enter Password" name="password" required>
 
             <input type="submit" value="Login" class="btn">
         </form>
-        <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+        <p>Chưa có tài khoản? <a href="#" id="show-register">Hãy đăng ký</a></p>
     </div>
 
     <div id="form-register" class="form-content" style="display: none;">
-        <!-- Form đăng ký -->
-        <h3>Register</h3>
-        <form action="/register" method="POST" class="form-register">
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="username" required>
-
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
-
+        <h3>Đăng ký</h3>
+        <form action="/register" method="POST" class="form-register" enctype="multipart/form-data">
+            <label for="username"><b>Tên đăng nhập</b></label>
+            <input type="text" id="username" placeholder="Enter Username" name="username" required>
+    
+            <label for="password"><b>Mật khẩu</b></label>
+            <input type="password" id="password" placeholder="Enter Password" name="password" required>
+    
+            <label for="name"><b>Họ và tên</b></label>
+            <input type="text" id="name" placeholder="Enter Your Full Name" name="name" required>
+    
+            <label for="address"><b>Địa chỉ</b></label>
+            <input type="text" id="address" placeholder="Enter Your Address (Optional)" name="address">
+    
+            <label for="avatar"><b>Ảnh đại diện</b></label>
+            <input type="file" id="avatar" name="avatar" accept="image/*" onchange="previewAvatar(event)" required>
+    
+            <!-- Preview Avatar -->
+            <div id="avatar-preview" style="margin-top: 10px;">
+                <img src="/img/default-avatar.jpg" alt="Avatar Preview" id="avatar-image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+            </div>
+    
             <input type="submit" value="Register" class="btn">
         </form>
-        <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+    
+        <p>Đã có tài khoản? <a href="#" id="show-login">Hãy đăng nhập</a></p>
     </div>
+    
+    
 </div>
 
 <script>
@@ -51,4 +67,13 @@
             loginForm.style.display = "block";
         });
     });
+
+    function previewAvatar(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const preview = document.getElementById('avatar-image');
+            preview.src = reader.result; // Cập nhật ảnh preview
+        };
+        reader.readAsDataURL(event.target.files[0]); // Đọc file ảnh
+    }
 </script>

@@ -2,6 +2,7 @@
 
 :root{
     --black: #1c1c1c;
+    --green: #4CAF50;
     --gray: #7E7E7E;
     --gary-light: #E4E4E4;
     --red: #b30000;
@@ -46,7 +47,7 @@ textarea{
     margin-bottom: 1rem;
 }
 .btn{
-    background-color: var(--black);
+    background-color: var(--green);
     border: none;
     color: white;
     padding: 16px 32px;
@@ -429,3 +430,437 @@ a:hover {
 .toastr.error {
     background-color: #f44336;
 }
+
+
+
+.header__profile {
+    display: flex;
+    align-items: center;  /* Căn chỉnh theo chiều dọc */
+  }
+  
+  .profile__name {
+    margin-right: 10px;  /* Khoảng cách giữa tên và avatar */
+    font-size: 16px;     /* Kích thước font của tên */
+    font-weight: bold;   /* In đậm tên người dùng */
+  }
+
+.profile__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Dropdown Menu */
+.profile__menu {
+    position: absolute;
+    top: 70px;
+    right: 20;
+    background-color: #444;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile__menu-item {
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.9em;
+}
+
+.profile__menu-item:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Modal background */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Độ mờ nền */
+    display: flex;
+    padding-left: 500px;
+    padding-top: 20px;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    z-index: 1000; /* Đảm bảo modal ở trên cùng */
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* Bạn có thể điều chỉnh kích thước này tùy ý */
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Đảm bảo các phần tử trong modal xếp theo chiều dọc */
+    align-items: center; /* Căn giữa các phần tử bên trong modal */
+    justify-content: flex-start; /* Đảm bảo các phần tử không bị ép về giữa */
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* Avatar */
+  .avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .avatar-input {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  /* Form Groups */
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+    width: 100%; /* Đảm bảo form nhóm chiếm toàn bộ chiều rộng */
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+  
+  .save-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .save-btn:hover {
+    background-color: #45a049;
+  }
+  
+
+  .articles {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .articles__heading {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .article-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .article-item {
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .article-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .article-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1.5rem;
+  }
+  
+  .article-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .article-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #0073e6;
+    margin: 0;
+  }
+  
+  .article-meta {
+    display: flex;
+    justify-content: space-between; /* Căn trái và phải */
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0; /* Xóa margin mặc định */
+  }
+  
+  .article-author {
+    font-style: italic;
+  }
+  
+  .article-date {
+    text-align: right;
+    color: #999;
+  }
+  
+  .pagination-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .pagination-button {
+    background-color: #0073e6;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    font-size: 1
+  }  
+
+
+
+  /* Modal Styling */
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .custom-modal__content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .custom-search-form {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .custom-search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .custom-search-submit {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .custom-search-submit:hover {
+    background: #0056b3;
+  }
+  
+  /* Modal active state */
+  .custom-modal.active {
+    display: flex;
+  }
+
+  #searchResults {
+    margin-top: 20px;
+  }
+  
+  .search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .search-result-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .search-result-item p {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+
+  /* Tổng thể giao diện */
+.admin-dashboard {
+    padding: 20px;
+    background-color: #f4f7fb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .admin-title h2 {
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .add-new-btn {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-new-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Danh sách bài viết */
+  .admin-posts-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .admin-post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .admin-post-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-title {
+    font-size: 1.2rem;
+    color: #007bff;
+    text-decoration: none;
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .post-title:hover {
+    text-decoration: underline;
+  }
+  
+  /* Nút điều khiển */
+  .admin-posts-controls {
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Các nút */
+  .btn1 {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-btn1 {
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .edit-btn1:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn1-delete1 {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .btn1-delete1:hover {
+    background-color: #c82333;
+  }
+  
+  .delete-form input[type="submit"] {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  

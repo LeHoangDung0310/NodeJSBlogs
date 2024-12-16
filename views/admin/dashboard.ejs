@@ -1,22 +1,23 @@
-<div class="admin-title">
-    <h2>Posts</h2>
-    <a href="/add-post" class="button">+ Add New</a>
-</div>
-
-<ul class="admin-post">
-    <% data.forEach(post => { %>
-        <li>
-            <a href="/post/<%= post._id %>">
-                <%= post.title %> &nearr;
-            </a>
-            <div class="admin-posts-controls">
-                <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
-
-
-                <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST">
-                    <input type="submit" value="Delete" class="btn-delete btn">
-                </form>
-            </div>
+<div class="admin-dashboard">
+    <div class="admin-title">
+      <h2>Quản lý Bài Viết</h2>
+      <a href="/add-post" class="button add-new-btn">+ Thêm Mới</a>
+    </div>
+  
+    <ul class="admin-posts-list">
+      <% data.forEach(post => { %>
+        <li class="admin-post-item">
+          <a href="/post/<%= post._id %>" class="post-title">
+            <%= post.title %> &nearr;
+          </a>
+          <div class="admin-posts-controls">
+            <a href="/edit-post/<%= post._id %>" class="btn1 edit-btn1">Chỉnh sửa</a>
+            <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" class="delete1-form">
+              <input type="submit" value="Xóa" class="btn1 btn1-delete1">
+            </form>
+          </div>
         </li>
-    <% }) %>
-</ul>
+      <% }) %>
+    </ul>
+  </div>
+  

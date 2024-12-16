@@ -1,14 +1,42 @@
-<a href="/dashboard">&larr; Back</a>
+<a href="/dashboard">&larr; Trở lại</a>
 <div class="admin-title">
-    <h2>Add New Post</h2>
+    <h2>Thêm mới</h2>
 </div>
 
-<form action="/add-post" method="POST">
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title">
+<form id="add-post-form" action="/add-post" method="POST" enctype="multipart/form-data">
+    <label for="title"><b>Tiêu đề</b></label>
+    <input type="text" placeholder="Nhập tiêu đề" name="title" required>
 
-    <label for="body"><b>Content</b></label>
-    <textarea name="body" cols="50" rows="10"></textarea>
+    <label for="content"><b>Nội dung</b></label>
+    <div id="editor-container" style="height: 300px; border: 1px solid #ccc;"></div>
 
-    <input type="submit" value="Add" class="btn">
+    <input type="hidden" name="body" id="body">
+
+    <input type="submit" value="Thêm" class="btn">
 </form>
+
+<script>
+    // Initialize Quill editor
+    const quill = new Quill('#editor-container', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],  // Text formatting
+                ['blockquote', 'code-block'],              // Block styles
+                [{ 'header': [1, 2, 3, false] }],          // Headers
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }], // Lists
+                [{ 'script': 'sub'}, { 'script': 'super' }], // Sub/superscript
+                [{ 'align': [] }],                         // Alignments
+                ['image', 'video'],                        // Media
+                ['clean']                                  // Remove formatting
+            ]
+        }
+    });
+
+    // Submit form data
+    const form = document.getElementById('add-post-form');
+    form.onsubmit = function () {
+        const body = document.getElementById('body');
+        body.value = quill.root.innerHTML; // Get HTML content from Quill editor
+    };
+</script>

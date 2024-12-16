@@ -1,21 +1,150 @@
 <header class="header">
-    <a href="/"  class="header__logo">Admin Panel</a>
-    <nav class="header__nav">
-        <ul>
-            <li>
-                <a href="/" class="">Home</a>
-            </li>
-            <li>
-                <a href="/about" class="">About</a>
-            </li>
-            <li>
-                <a href="/contact" class="">Contact</a>
-            </li>
-        </ul>
-    </nav>
-    <div class="header__button">
-        <a href="/logout">
-            Logout
-        </a>
+  <a href="/" class="header__logo">My blog</a>
+  <nav class="header__nav">
+    <ul>
+      <li><a href="/" class="">Trang chủ</a></li>
+      <li><a href="/about" class="">Giới thiệu</a></li>
+      <li><a href="/contact" class="">Liên hệ</a></li>
+      <li>
+        <a href="/admin">Blog của tôi</a>
+    </li>
+    </ul>
+  </nav>
+  <div class="header__profile">
+    <div class="profile__name">
+        <span id="userName"><%= user.name %></span> <!-- Hiển thị tên người dùng -->
+      </div>
+    <img
+      id="userAvatar"
+      src="/img/default-avatar.jpg"
+      alt="User Avatar"
+      class="profile__avatar"
+    />
+    <div class="profile__menu" id="profileMenu" style="display: none">
+      <a href="#" id="editProfileLink" class="profile__menu-item">Sửa</a>
+      <a href="/logout" class="profile__menu-item">Thoát</a>
     </div>
+  </div>
 </header>
+
+
+<div id="editProfileModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>Edit Profile</h2>
+      <form id="editProfileForm" action="/edit-profile" method="POST" enctype="multipart/form-data" class="edit-profile-form">
+        <div class="avatar-container">
+          <img id="avatarPreview" src="<%= user.avatar ? user.avatar : '/img/default-avatar.jpg' %>" alt="Avatar" class="avatar-preview"/>
+          <input type="file" id="avatar" name="avatar" accept="image/*" class="avatar-input" onchange="previewAvatar(event)" />
+        </div>
+  
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" value="<%= user.name %>" required class="form-input"/>
+        </div>
+  
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" value="<%= user.address %>" required class="form-input"/>
+        </div>
+  
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const avatarElement = document.getElementById("userAvatar");
+    const profileMenu = document.getElementById("profileMenu");
+    const profileToggle = avatarElement;
+    const editProfileLink = document.getElementById("editProfileLink");
+    const modal = document.getElementById("editProfileModal");
+    const closeModal = document.getElementById("closeModal");
+
+    // Nút login khi user không đăng nhập
+    const loginButton = document.createElement("a");
+    loginButton.href = "/login";
+    loginButton.innerText = "Login";
+    loginButton.className = "login-btn";
+
+
+    try {
+      const response = await fetch("/profile", {
+        method: "GET",
+        credentials: "same-origin", // Đảm bảo cookie (JWT token) được gửi cùng request
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.avatar);
+        if (data.avatar) {
+          avatarElement.src = data.avatar; // Cập nhật avatar
+          console.log("cập nhật")
+        }
+      } else if (response.status === 401) {
+        // Ẩn avatar và hiển thị nút login
+        document.querySelector(".header__profile").innerHTML = "";
+        document.querySelector(".header__profile").appendChild(loginButton);
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      // Ẩn avatar và hiển thị nút login
+      document.querySelector(".header__profile").innerHTML = "";
+      document.querySelector(".header__profile").appendChild(loginButton);
+    }
+
+    // Xử lý toggle hiển thị menu
+    profileToggle.addEventListener("click", () => {
+      profileMenu.style.display =
+        profileMenu.style.display === "block" ? "none" : "block";
+    });
+
+    // Đóng menu khi click ngoài vùng menu
+    document.addEventListener("click", (event) => {
+      if (
+        !profileMenu.contains(event.target) &&
+        event.target !== profileToggle
+      ) {
+        profileMenu.style.display = "none";
+      }
+    });
+
+    // Mở modal khi nhấn "Edit Profile"
+    editProfileLink.addEventListener("click", (e) => {
+      e.preventDefault(); // Ngừng chuyển hướng mặc định
+      modal.style.display = "block"; // Hiển thị modal
+    });
+
+    // Đóng modal khi nhấn vào nút "x"
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Đóng modal nếu người dùng click ngoài modal
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+
+  });
+
+  function previewAvatar(event) {
+    const file = event.target.files[0];  // Lấy file người dùng chọn
+    const preview = document.getElementById('avatarPreview');  // Lấy phần tử ảnh preview
+
+    // Kiểm tra xem người dùng đã chọn file hay chưa
+    if (file) {
+      const reader = new FileReader();  // Tạo một đối tượng FileReader để đọc file
+      reader.onload = function(e) {
+        preview.src = e.target.result;  // Đặt src của ảnh preview thành dữ liệu base64 của ảnh đã chọn
+      };
+      reader.readAsDataURL(file);  // Đọc file dưới dạng base64
+    } else {
+      preview.src = '/img/default-avatar.jpg';  // Nếu không có file, hiển thị ảnh mặc định
+    }
+  }
+</script>

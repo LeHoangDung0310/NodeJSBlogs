@@ -1,18 +1,55 @@
-<a href="/dashboard">&larr; Back</a>
+<a href="/dashboard">&larr; Trở lại</a>
 <div class="admin-title">
-    <h2>View / Edit Post</h2>
-
-    <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete" class="btn-delete btn">
-    </form>
+    <h2>Edit Post</h2>
 </div>
 
-<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
+<form id="edit-post-form" action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    <label for="title"><b>Tiêu đề</b></label>
+    <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" required>
 
-    <label for="body"><b>Content</b></label>
-    <textarea name="body" cols="50" rows="10"><%= data.body %></textarea>
+    <label for="content"><b>Nội dung</b></label>
+    <!-- Quill editor container -->
+    <div id="editor-container" style="height: 300px; border: 1px solid #ccc;"></div>
 
-    <input type="submit" value="Update" class="btn">
+    <!-- Hidden input to submit the content from Quill -->
+    <input type="hidden" name="body" id="body" required>
+
+    <input type="submit" value="Cập nhật" class="btn">
 </form>
+
+<script>
+    // Initialize Quill editor
+    const quill = new Quill('#editor-container', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [{ 'header': [1, 2, 3, false] }],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'script': 'sub'}, { 'script': 'super' }],
+                [{ 'align': [] }],
+                ['image', 'video'],
+                ['clean']
+            ]
+        }
+    });
+
+    // Đảm bảo rằng bodyContent được truyền đúng từ EJS và được hiển thị đúng trong Quill
+    const bodyContent = `<%- data.body %>`;  // Đảm bảo rằng EJS render đúng
+
+    // Chèn nội dung vào Quill editor
+    if (bodyContent) {
+        quill.root.innerHTML = bodyContent;  // Đặt nội dung HTML vào Quill
+    }
+
+    // Submit form data
+    const form = document.getElementById('edit-post-form');
+    form.onsubmit = function () {
+        // Lấy nội dung HTML từ Quill và gán vào input hidden
+        const body = document.getElementById('body');
+        body.value = quill.root.innerHTML;  // Đặt nội dung HTML vào trường body
+    };
+</script>
+
+

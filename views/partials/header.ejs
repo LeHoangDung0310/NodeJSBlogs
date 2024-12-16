@@ -1,15 +1,18 @@
 <header class="header">
-    <a href="/"  class="header__logo">My Blog</a>
+    <a href="/"  class="header__logo">Blog</a>
     <nav class="header__nav">
         <ul>
             <li>
-                <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
+                <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Trang chủ</a>
             </li>
             <li>
-                <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
+                <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">Giới thiệu</a>
             </li>
             <li>
-                <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
+                <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Liên hệ</a>
+            </li>
+            <li>
+                <a href="/admin">Blog của tôi</a>
             </li>
         </ul>
     </nav>
