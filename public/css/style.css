@@ -3,8 +3,10 @@
 :root{
     --black: #1c1c1c;
     --green: #4CAF50;
-    --gray: #7E7E7E;
-    --gary-light: #E4E4E4;
+    /* --gray: #7E7E7E; */
+    --gray: #6aacf3;
+    /* --gary-light: #E4E4E4; */
+    --gary-light: #9bc5f1;
     --red: #b30000;
     --font-size-base: 1rem;
     --font-size-md: clamp(1.25rem,0.61vw + 1.1rem, 1.58rem);
@@ -18,7 +20,9 @@ body{
     color: var(--black);
     font-size: var(--font-size-base);
     background-color: #FAF5EE;
+    background-color:#9bc5f1;
     background-image: url("/img/anh3.jpg");
+    background-image: url("/img/image.png");
     background-size: cover; /* Đặt ảnh nền phủ toàn màn hình */
     background-repeat: no-repeat; /* Không lặp lại ảnh nền */
     background-position: center; /* Căn giữa ảnh nền */

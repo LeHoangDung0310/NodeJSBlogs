@@ -1,0 +1,26 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "3ed55bad-9f76-4911-9c0b-dc8f3c2dde95",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1734443860261"
+        }
+      },
+      "favorite": {
+        "name": "cluster0.1mr1w.mongodb.net"
+      },
+      "savedConnectionType": "recent",
+      "connectionOptions": {
+        "connectionString": "mongodb+srv://luyenluuchimai:XIdkJN73Ugmpb02O@cluster0.1mr1w.mongodb.net/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    }
+  ]
+}
